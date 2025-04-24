@@ -13,30 +13,29 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5009;
 
-// Get __dirname in ES module
+// Get __dirname in ES Module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Connect MongoDB
+// Connect to MongoDB
 connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// API Routes
+// Routes
 app.use('/api/auth', authRoutes);           // /api/auth/register, /login
-app.use('/api/events', eventRoutes);        // /api/events/, /api/events/register/:id
-app.use('/api/dashboard', protectedRoutes); // /api/dashboard (protected test)
+app.use('/api/events', eventRoutes);        // /api/events/, /register/:id
+app.use('/api/dashboard', protectedRoutes); // /api/dashboard
 
-// Serve React frontend
+// Serve frontend from "client" folder
 app.use(express.static(path.join(__dirname, 'client')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
 });
 
-// Start Server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

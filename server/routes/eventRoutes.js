@@ -5,8 +5,9 @@ import upload from '../middleware/upload.js';
 
 const router = express.Router();
 
-router.get('/events', getAllEvents);
-router.post('/events', verifyToken, upload.single('image'), createEvent);
-router.post('/events/register/:id', verifyToken, registerForEvent);
+// Corrected: DO NOT prefix with `/events` here
+router.get('/', getAllEvents);
+router.post('/', verifyToken, upload.single('image'), createEvent);
+router.post('/register/:id', verifyToken, registerForEvent);
 
 export default router;
