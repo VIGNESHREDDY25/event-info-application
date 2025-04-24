@@ -1,0 +1,43 @@
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+.env.*.local
+
+# Vite / Cache
+.vite/
+.vscode/
+.cache/
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Optional: Ignore coverage reports
+coverage/
+
+# Optional: Ignore TypeScript build artifacts
+*.tsbuildinfo
