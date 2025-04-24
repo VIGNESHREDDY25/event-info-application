@@ -8,7 +8,7 @@ const EventList = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await axios.get('http://localhost:5009/api/events');
+        const res = await axios.get('https://event-info-application.onrender.com/api/events');
         setEvents(res.data);
       } catch (err) {
         setError('Failed to load events');
@@ -30,17 +30,11 @@ const EventList = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {events.map((event) => (
             <div key={event._id} className="bg-white p-4 rounded shadow-lg">
-              <img
-                src={event.image}
-                alt={event.title}
-                className="w-full h-48 object-contain rounded" // ✅ Fixed zoom issue
-              />
+              <img src={event.image} alt={event.title} className="w-full h-48 object-contain rounded" />
               <h3 className="text-xl font-bold mt-2">{event.title}</h3>
               <p className="text-sm text-gray-600">{event.date.slice(0, 10)} @ {event.location}</p>
               <p className="mt-2">{event.description}</p>
-              <p className="text-sm text-gray-500 mt-2">
-                Created by: {event.createdBy?.username || 'Unknown'}
-              </p>
+              <p className="text-sm text-gray-500 mt-2">Created by: {event.createdBy?.username || 'Unknown'}</p>
               <p className="text-sm text-gray-500">Max: {event.maxParticipants}</p>
             </div>
           ))}
