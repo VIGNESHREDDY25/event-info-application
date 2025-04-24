@@ -25,9 +25,9 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api', eventRoutes);
-app.use('/api', protectedRoutes);
+app.use('/api/auth', authRoutes);           // /api/auth/register, /login
+app.use('/api/events', eventRoutes);        // /api/events/, /api/events/register/:id
+app.use('/api/dashboard', protectedRoutes); // /api/dashboard (protected test)
 
 // Serve React frontend
 app.use(express.static(path.join(__dirname, 'client')));
