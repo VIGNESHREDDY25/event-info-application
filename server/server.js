@@ -1,34 +1,42 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import connectDB from './config/db.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
-import protectedRoutes from './routes/protectedRoutes.js'; // ✅ NEW LINE
+import protectedRoutes from './routes/protectedRoutes.js';
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5009;
 
-// ✅ Connect to MongoDB Atlas
+// Get __dirname in ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Connect MongoDB
 connectDB();
 
-// ✅ Middlewares
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ Routes
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', eventRoutes);
-app.use('/api', protectedRoutes); // ✅ Paste this below eventRoutes
+app.use('/api', protectedRoutes);
 
-// ✅ Test route
-app.get('/', (req, res) => {
-  res.send('✅ VigrithBook backend is running...');
+// Serve React frontend
+app.use(express.static(path.join(__dirname, 'client')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
 });
 
-// ✅ Start server
+// Start Server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
